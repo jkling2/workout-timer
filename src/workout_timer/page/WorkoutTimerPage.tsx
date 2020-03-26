@@ -122,6 +122,13 @@ const WorkoutConfiguration: React.FC<WorkoutConfigurationProps> = props => {
 };
 
 const WorkoutTimer: React.FC<WorkoutProps> = props => {
+  let audioBeforeStart = new Audio("/sounds/beforeStart321.wav")
+  audioBeforeStart.addEventListener('ended', () => props.workoutTimerControl.setCountDown(true));
+
+  const playAudio = (audio: HTMLAudioElement) => {
+    audio.play();
+  }
+
   return (
     <Card>
       <Card.Body>
@@ -144,7 +151,7 @@ const WorkoutTimer: React.FC<WorkoutProps> = props => {
         />
         <ButtonToolbar aria-label="Toolbar with button groups">
           <ButtonGroup className="mr-2" aria-label="First group">
-            <Button variant="primary" size="lg" active onClick={() => props.workoutTimerControl.setCountDown(true)}>
+            <Button variant="primary" size="lg" active onClick={() => playAudio(audioBeforeStart)}>
               Start
             </Button>
           </ButtonGroup>

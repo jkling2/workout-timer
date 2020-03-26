@@ -10,6 +10,12 @@ function useWorkoutTimerControl(): WorkoutTimerProps {
   const [initialWorkoutTimerState, setInitialWorkoutTimerState] = useState<WorkoutTimerState>({ intervalTime: 0, breakTime: 0, rounds: 0});
   const [currentWorkoutTimerState, setCurrentWorkoutTimerState] = useState<WorkoutTimerState>(initialWorkoutTimerState);
   const [countDown, setCountDown] = useState(false);
+  let audioBeforeBreak = new Audio("/sounds/beforeBreak.mp3")
+  let audioBeforeInterval = new Audio("/sounds/beforeInterval.wav")
+
+  const playAudio = (audio: HTMLAudioElement) => {
+    return audio.play();
+  }
 
   useEffect(() => {
     setCurrentWorkoutTimerState(initialWorkoutTimerState);
@@ -17,7 +23,13 @@ function useWorkoutTimerControl(): WorkoutTimerProps {
 
   useEffect(() => {
     if (countDown && currentWorkoutTimerState.rounds > 0 && currentWorkoutTimerState.intervalTime > 0) {
-      sleep(1000).then(resolve =>
+      sleep(1000)
+      .then(resolve => {
+        if (currentWorkoutTimerState.intervalTime === 1) {
+          return playAudio(audioBeforeBreak);
+        }
+      })
+      .then(resolve =>
         setCurrentWorkoutTimerState({
           intervalTime: currentWorkoutTimerState.intervalTime - 1,
           breakTime: currentWorkoutTimerState.breakTime,
@@ -25,7 +37,13 @@ function useWorkoutTimerControl(): WorkoutTimerProps {
         }),
       );
     } else if (countDown && currentWorkoutTimerState.rounds > 0 && currentWorkoutTimerState.breakTime > 0) {
-      sleep(1000).then(resolve =>
+      sleep(1000)
+      .then(resolve => {
+        if (currentWorkoutTimerState.breakTime === 1) {
+          return playAudio(audioBeforeInterval);
+        }
+      })
+      .then(resolve =>
         setCurrentWorkoutTimerState({
           intervalTime: currentWorkoutTimerState.intervalTime,
           breakTime: currentWorkoutTimerState.breakTime - 1,
@@ -33,7 +51,8 @@ function useWorkoutTimerControl(): WorkoutTimerProps {
         }),
       );
     } else if (countDown && currentWorkoutTimerState.rounds > 0) {
-      sleep(1000).then(resolve =>
+      sleep(1000)
+      .then(resolve =>
         setCurrentWorkoutTimerState({
           intervalTime: initialWorkoutTimerState.intervalTime,
           breakTime: initialWorkoutTimerState.breakTime,
@@ -41,7 +60,7 @@ function useWorkoutTimerControl(): WorkoutTimerProps {
         }),
       );
     }
-  }, [countDown, currentWorkoutTimerState, initialWorkoutTimerState]);
+  }, [countDown, currentWorkoutTimerState, initialWorkoutTimerState, audioBeforeBreak, audioBeforeInterval]);
 
   
   // useEffect(() => {
