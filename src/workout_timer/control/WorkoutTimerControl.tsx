@@ -10,8 +10,8 @@ function useWorkoutTimerControl(): WorkoutTimerProps {
   const [initialWorkoutTimerState, setInitialWorkoutTimerState] = useState<WorkoutTimerState>({ intervalTime: 0, breakTime: 0, rounds: 0});
   const [currentWorkoutTimerState, setCurrentWorkoutTimerState] = useState<WorkoutTimerState>(initialWorkoutTimerState);
   const [countDown, setCountDown] = useState(false);
-  let audioBeforeBreak = new Audio("/sounds/beforeBreak.mp3")
-  let audioBeforeInterval = new Audio("/sounds/beforeInterval.wav")
+  let audioBeforeBreak = new Audio("https://raw.githubusercontent.com/jkling2/workout-client/master/sounds/beforeBreak.mp3")
+  let audioBeforeInterval = new Audio("https://raw.githubusercontent.com/jkling2/workout-client/master/sounds/beforeInterval.wav")
 
   const playAudio = (audio: HTMLAudioElement) => {
     return audio.play();
@@ -61,54 +61,6 @@ function useWorkoutTimerControl(): WorkoutTimerProps {
       );
     }
   }, [countDown, currentWorkoutTimerState, initialWorkoutTimerState, audioBeforeBreak, audioBeforeInterval]);
-
-  
-  // useEffect(() => {
-
-    // async function do_stuff() {
-    //     function sleep(ms: number) {
-    //         const sleepPromise =  new Promise( resolve => setTimeout(resolve, ms) );
-    //         return sleepPromise;
-    //       }
-    //       if (countDown) {
-    //         console.log("start");
-    //       for (var k = rounds; k > 0; k--) {
-    //         console.log(k);
-    //         for (var i = intervalTime; i > 0; i--) {
-    //             console.log("iT" + i);
-    //           // sleep(1000).then(resolve => setIntervalTime(intervalTime - 1));
-    //           await sleep(1000);
-    //             setIntervalTime(intervalTime - i);
-    
-    //         }
-    //         for (var j = breakTime; j > 0; j--) {
-    //             console.log("bT" + j);
-    //         //  sleep(1000).then(resolve => setBreakTime(breakTime - 1));
-    //         await sleep(1000);
-    //         setBreakTime(breakTime - j);
-    
-    //         }
-    //         setIntervalTime(initialIntervalTime);
-    //         setBreakTime(initialBreakTime);
-    //       }
-    //     }
-
-    //   }
-    // do_stuff();
-    // }, [countDown]);
-    
-
-//     if (countDown && rounds > 0 && intervalTime > 0) {
-//       sleep(1000).then(resolve => setIntervalTime(intervalTime - 1));
-//     } else if (countDown && rounds > 0 && breakTime > 0) {
-//       sleep(1000).then(resolve => setBreakTime(breakTime - 1));
-//     } else if (countDown && rounds > 0) {
-//       setRounds(rounds - 1);
-//       setIntervalTime(initialIntervalTime);
-//       setBreakTime(initialBreakTime);
-//     }
-//   }, [countDown, intervalTime, breakTime, rounds]);
-
 
   return {
     initialWorkoutTimerState: initialWorkoutTimerState, 

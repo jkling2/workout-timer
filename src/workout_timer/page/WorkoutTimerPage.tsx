@@ -122,7 +122,7 @@ const WorkoutConfiguration: React.FC<WorkoutConfigurationProps> = props => {
 };
 
 const WorkoutTimer: React.FC<WorkoutProps> = props => {
-  let audioBeforeStart = new Audio("/sounds/beforeStart321.wav")
+  let audioBeforeStart = new Audio("https://raw.githubusercontent.com/jkling2/workout-client/master/sounds/beforeStart321.wav")
   audioBeforeStart.addEventListener('ended', () => props.workoutTimerControl.setCountDown(true));
 
   const playAudio = (audio: HTMLAudioElement) => {
