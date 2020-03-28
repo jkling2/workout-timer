@@ -10,8 +10,8 @@ function useWorkoutTimerControl(): WorkoutTimerProps {
   const [initialWorkoutTimerState, setInitialWorkoutTimerState] = useState<WorkoutTimerState>({ intervalTime: 0, breakTime: 0, rounds: 0});
   const [currentWorkoutTimerState, setCurrentWorkoutTimerState] = useState<WorkoutTimerState>(initialWorkoutTimerState);
   const [countDown, setCountDown] = useState(false);
-  let audioBeforeBreak = new Audio("https://raw.githubusercontent.com/jkling2/workout-client/master/sounds/beforeBreak.mp3")
-  let audioBeforeInterval = new Audio("https://raw.githubusercontent.com/jkling2/workout-client/master/sounds/beforeInterval.wav")
+  let audioBeforeBreak = new Audio("https://raw.githubusercontent.com/jkling2/workout-timer/master/public/sounds/beforeBreak.mp3")
+  let audioBeforeInterval = new Audio("https://raw.githubusercontent.com/jkling2/workout-timer/master/public/sounds/beforeInterval.wav")
 
   const playAudio = (audio: HTMLAudioElement) => {
     return audio.play();
