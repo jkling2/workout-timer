@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.js": "/workout-client/static/js/main.e7847a69.chunk.js",
-    "main.js.map": "/workout-client/static/js/main.e7847a69.chunk.js.map",
-    "runtime-main.js": "/workout-client/static/js/runtime-main.4996227a.js",
-    "runtime-main.js.map": "/workout-client/static/js/runtime-main.4996227a.js.map",
-    "static/css/2.47e06e2e.chunk.css": "/workout-client/static/css/2.47e06e2e.chunk.css",
-    "static/js/2.f86964c2.chunk.js": "/workout-client/static/js/2.f86964c2.chunk.js",
-    "static/js/2.f86964c2.chunk.js.map": "/workout-client/static/js/2.f86964c2.chunk.js.map",
-    "index.html": "/workout-client/index.html",
-    "precache-manifest.4091d078cd3a364ce6f4899d034952c7.js": "/workout-client/precache-manifest.4091d078cd3a364ce6f4899d034952c7.js",
-    "service-worker.js": "/workout-client/service-worker.js",
-    "static/css/2.47e06e2e.chunk.css.map": "/workout-client/static/css/2.47e06e2e.chunk.css.map",
-    "static/js/2.f86964c2.chunk.js.LICENSE": "/workout-client/static/js/2.f86964c2.chunk.js.LICENSE"
+    "main.js": "/workout-timer/static/js/main.39cf3d64.chunk.js",
+    "main.js.map": "/workout-timer/static/js/main.39cf3d64.chunk.js.map",
+    "runtime-main.js": "/workout-timer/static/js/runtime-main.1161f481.js",
+    "runtime-main.js.map": "/workout-timer/static/js/runtime-main.1161f481.js.map",
+    "static/css/2.47e06e2e.chunk.css": "/workout-timer/static/css/2.47e06e2e.chunk.css",
+    "static/js/2.f86964c2.chunk.js": "/workout-timer/static/js/2.f86964c2.chunk.js",
+    "static/js/2.f86964c2.chunk.js.map": "/workout-timer/static/js/2.f86964c2.chunk.js.map",
+    "index.html": "/workout-timer/index.html",
+    "precache-manifest.caec07a8edef39f8c571cf2ad0c97869.js": "/workout-timer/precache-manifest.caec07a8edef39f8c571cf2ad0c97869.js",
+    "service-worker.js": "/workout-timer/service-worker.js",
+    "static/css/2.47e06e2e.chunk.css.map": "/workout-timer/static/css/2.47e06e2e.chunk.css.map",
+    "static/js/2.f86964c2.chunk.js.LICENSE": "/workout-timer/static/js/2.f86964c2.chunk.js.LICENSE"
   },
   "entrypoints": [
-    "static/js/runtime-main.4996227a.js",
+    "static/js/runtime-main.1161f481.js",
     "static/css/2.47e06e2e.chunk.css",
     "static/js/2.f86964c2.chunk.js",
-    "static/js/main.e7847a69.chunk.js"
+    "static/js/main.39cf3d64.chunk.js"
   ]
 }
