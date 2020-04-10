@@ -1,22 +1,26 @@
 {
   "files": {
-    "main.js": "/workout-timer/static/js/main.d9e03c1b.chunk.js",
-    "main.js.map": "/workout-timer/static/js/main.d9e03c1b.chunk.js.map",
-    "runtime-main.js": "/workout-timer/static/js/runtime-main.1161f481.js",
-    "runtime-main.js.map": "/workout-timer/static/js/runtime-main.1161f481.js.map",
-    "static/css/2.47e06e2e.chunk.css": "/workout-timer/static/css/2.47e06e2e.chunk.css",
-    "static/js/2.f86964c2.chunk.js": "/workout-timer/static/js/2.f86964c2.chunk.js",
-    "static/js/2.f86964c2.chunk.js.map": "/workout-timer/static/js/2.f86964c2.chunk.js.map",
+    "main.css": "/workout-timer/static/css/main.83adb540.chunk.css",
+    "main.js": "/workout-timer/static/js/main.25ff0911.chunk.js",
+    "main.js.map": "/workout-timer/static/js/main.25ff0911.chunk.js.map",
+    "runtime-main.js": "/workout-timer/static/js/runtime-main.c79d7337.js",
+    "runtime-main.js.map": "/workout-timer/static/js/runtime-main.c79d7337.js.map",
+    "static/css/2.de424728.chunk.css": "/workout-timer/static/css/2.de424728.chunk.css",
+    "static/js/2.74753efe.chunk.js": "/workout-timer/static/js/2.74753efe.chunk.js",
+    "static/js/2.74753efe.chunk.js.map": "/workout-timer/static/js/2.74753efe.chunk.js.map",
     "index.html": "/workout-timer/index.html",
-    "precache-manifest.6b8abb66f9c66a6d10250a8f0cc3cbd8.js": "/workout-timer/precache-manifest.6b8abb66f9c66a6d10250a8f0cc3cbd8.js",
+    "precache-manifest.cce1b621986d1413fadc11322d98f53a.js": "/workout-timer/precache-manifest.cce1b621986d1413fadc11322d98f53a.js",
     "service-worker.js": "/workout-timer/service-worker.js",
-    "static/css/2.47e06e2e.chunk.css.map": "/workout-timer/static/css/2.47e06e2e.chunk.css.map",
-    "static/js/2.f86964c2.chunk.js.LICENSE": "/workout-timer/static/js/2.f86964c2.chunk.js.LICENSE"
+    "static/css/2.de424728.chunk.css.map": "/workout-timer/static/css/2.de424728.chunk.css.map",
+    "static/css/main.83adb540.chunk.css.map": "/workout-timer/static/css/main.83adb540.chunk.css.map",
+    "static/js/2.74753efe.chunk.js.LICENSE.txt": "/workout-timer/static/js/2.74753efe.chunk.js.LICENSE.txt",
+    "static/media/favicon.svg": "/workout-timer/static/media/favicon.8b677943.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.1161f481.js",
-    "static/css/2.47e06e2e.chunk.css",
-    "static/js/2.f86964c2.chunk.js",
-    "static/js/main.d9e03c1b.chunk.js"
+    "static/js/runtime-main.c79d7337.js",
+    "static/css/2.de424728.chunk.css",
+    "static/js/2.74753efe.chunk.js",
+    "static/css/main.83adb540.chunk.css",
+    "static/js/main.25ff0911.chunk.js"
   ]
 }
