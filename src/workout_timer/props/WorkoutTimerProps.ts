@@ -4,7 +4,9 @@ interface WorkoutTimerProps {
     initialWorkoutTimerState: WorkoutTimerState;
     setInitialWorkoutTimerState: Function;
     currentWorkoutTimerState: WorkoutTimerState;
-    setCountDown: Function
+    setCountDown: Function;
+    resetWorkout: Function;
+    done:boolean;
 }
 
 export default WorkoutTimerProps;
