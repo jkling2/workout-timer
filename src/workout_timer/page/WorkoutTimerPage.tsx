@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import Form from 'react-bootstrap/Form';
-import Card from 'react-bootstrap/Card';
-import Container from 'react-bootstrap/Container';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-import InputGroup from 'react-bootstrap/InputGroup';
-import Button from 'react-bootstrap/Button';
-import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
-import ProgressBar from 'react-bootstrap/ProgressBar';
+import { Button, ButtonToolbar, Card, Col, Container, Form, InputGroup, Modal, ProgressBar, Row } from 'react-bootstrap';
 import useWorkoutTimerControl from '../control/WorkoutTimerControl';
 import WorkoutTimerProps from '../props/WorkoutTimerProps';
 import WorkoutFinishedDisplay from '../display/WorkoutFinishedDisplay';
+import num3 from '../../3.svg';
+import num2 from '../../2.svg';
+import num1 from '../../1.svg';
+import Confetti from 'react-confetti';
 
 interface WorkoutConfigurationProps {
   workoutTimerControl: WorkoutTimerProps;
@@ -158,9 +154,14 @@ const WorkoutTimer: React.FC<WorkoutProps> = props => {
     setWorkoutState(WorkoutState.RUNNING);
   });
 
+  const [showImageModal1, setShowImageModal1] = useState(false);
+  const [showImageModal2, setShowImageModal2] = useState(false);
+  const [showImageModal3, setShowImageModal3] = useState(false);
+
   const runWorkout = () => {
     if (workoutState === WorkoutState.INITIAL) {
       setAudioIsPlaying(true);
+      setShowImageModal1(true);
       audioBeforeStart.play();
     } else {
       setWorkoutState(WorkoutState.RUNNING);
@@ -211,22 +212,53 @@ const WorkoutTimer: React.FC<WorkoutProps> = props => {
             max={props.workoutTimerControl.initialWorkoutTimerState.breakTime}
           />
         </Row>
-      )
+      );
     } else {
       return (
         <> </>
-      )
+      );
+    }
+  }
+
+  const ImageModal: React.FC = () => {
+
+    const startTimer1 = () => new Promise(resolve => setTimeout(resolve, 1000))
+    .then(resolve => {setShowImageModal1(false); setShowImageModal2(true);});
+    const startTimer2 = () => new Promise(resolve => setTimeout(resolve, 1000))
+    .then(resolve => {setShowImageModal2(false); setShowImageModal3(true);});
+    const startTimer3 = () => new Promise(resolve => setTimeout(resolve, 1000))
+    .then(resolve => {setShowImageModal3(false); setWorkoutState(WorkoutState.RUNNING);});
+    if (showImageModal1) {
+      return (
+        <Modal className="fade_in_number_modal" show={showImageModal1} size="sm" centered onShow={startTimer1} scrollable={false} >
+          <img alt="" src={num3} width="80%" height="80%" />
+        </Modal>
+      );
+    } else if (showImageModal2) {
+      return (
+        <Modal className="fade_in_number_modal" show={showImageModal2} size="sm" centered onShow={startTimer2} scrollable={false} >
+            <img alt="" src={num2} width="80%" height="80%" />
+        </Modal>
+      );
+    } else {
+      return (
+        <Modal className="fade_in_number_modal" show={showImageModal3} size="sm" centered onShow={startTimer3} scrollable={false} >
+            <img alt="" src={num1} width="80%" height="80%" />
+        </Modal>
+      );
     }
   }
 
   return (
     <>
+    {workoutState === WorkoutState.DONE && <Confetti run={workoutState === WorkoutState.DONE}/>}
     <WorkoutFinishedDisplay
           show={workoutState === WorkoutState.DONE || workoutState === WorkoutState.STOPPED}
           completedSuccessfull={workoutState === WorkoutState.DONE}
           reset={() => setWorkoutState(WorkoutState.INITIAL)}
           quit= {() => setWorkoutState(WorkoutState.PAUSED)}
           />
+    <ImageModal />
     <Card id="card-fg">
       <Card.Body>
         <Card.Title id="card-title-fg">Workout</Card.Title>

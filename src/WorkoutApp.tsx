@@ -22,6 +22,7 @@ const WorkoutApp = () => {
         </Navbar>
       </header>
       <main style={styles.padTopAfterFixedNavbar}>
+      {/*<main style={{paddingTop: "50px"}}> */}  {/*this works too - Inline-Style*/}
           <WorkoutTimerPage />  
       </main>
     </>

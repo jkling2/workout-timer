@@ -1,3 +1,39 @@
+@keyframes fade_in {
+    0% {
+        opacity: 0;
+        transform: scale(0.2);
+    }
+    50% {
+        opacity: 0.6;
+        transform: scale(0.6);
+    }
+    80% {
+        opacity: 1;
+        transform: scale(1)
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.fade_in_number_modal {
+    animation: fade_in 1s linear;
+}
+
+.modal-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: transparent;
+    background-clip: padding-box;
+    border: none;
+    border-radius: .3rem;
+    outline: 0;
+}
+
 @keyframes ring {
 	0% {
 		transform: rotateZ(-20deg);

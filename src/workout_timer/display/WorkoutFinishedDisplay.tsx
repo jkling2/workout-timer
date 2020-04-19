@@ -13,7 +13,7 @@ interface WorkoutFinishedProps {
 
 const WorkoutFinishedDisplay: React.FC<WorkoutFinishedProps> = props => {
   return (
-    <Modal show={props.show} size="lg" centered>
+    <Modal show={props.show} size="lg" centered >
       <Modal.Header className="modal-head-fg">
         <Modal.Title id="contained-modal-title-vcenter">
           {props.completedSuccessfull ? 'WUHUUUUU!' : 'Stop Workout?'}
@@ -34,11 +34,11 @@ const WorkoutFinishedDisplay: React.FC<WorkoutFinishedProps> = props => {
           trigger="click"
           placement="top"
           overlay={<Tooltip id="resetTooltip">Reseting the Workout</Tooltip>}
-        >
+          >
           <Button
             id="button-fg"
-            onClick={() => new Promise(resolve => setTimeout(resolve, 1000)).then(resolve => props.reset())}
-          >
+            onClick={() => new Promise(resolve => setTimeout(resolve, 500)).then(resolve => props.reset())}
+            >
             {props.completedSuccessfull ? 'Close' : 'Stop Workout'}
           </Button>
         </OverlayTrigger>
