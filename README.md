@@ -5,6 +5,7 @@ Ready for Circuit Training? Need a Timer? Here you go:
 <p align="center">
   <img src="WorkoutTimer_demo.PNG" alt="Screencast"/>
 </p>
+
 ## Implementation and Run Details
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 I used `yarn` as the package manager. `npm` works as well.
