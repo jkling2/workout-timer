@@ -1,7 +1,10 @@
 # Workout Timer Application using React and Typescript
 
 Ready for Circuit Training? Need a Timer? Here you go:
-![Demo](/WorkoutTimer_demo.PNG)
+
+<p align="center">
+  <img src="WorkoutTimer_demo.PNG" alt="Screencast"/>
+</p>
 
 ## Implementation and Run Details
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -13,9 +16,8 @@ I used `yarn` as the package manager. `npm` works as well.
 git clone https://github.com/jkling2/workout-timer.git
 cd workout-timer
 
-#download dependencies
+#download the necessary dependencies into the folder node-modules
 yarn
-#This downloades the necessary dependencies into the following folder: `node-modules`.
 
 ```
 
@@ -43,4 +45,4 @@ Your app is ready to be deployed!
 ### `yarn deploy`
 
 Once the app was built, it can be deployed to GitHub Pages.<br />
-It takes the bundled React app from the `build` folder and deploys it to the specified homepage: [https://jkling2.github.io/workout-timer/].
+It takes the bundled React app from the `build` folder and deploys it to the specified homepage: [Workout Timer](https://jkling2.github.io/workout-timer/).
