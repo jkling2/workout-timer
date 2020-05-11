@@ -151,6 +151,7 @@ const WorkoutTimer: React.FC<WorkoutProps> = props => {
   const audioBeforeStart = new Audio(
     'https://raw.githubusercontent.com/jkling2/workout-timer/master/public/sounds/beforeStart321.wav',
   );
+  const intervalAudio = new Audio();
   audioBeforeStart.addEventListener('ended', () => {
     setAudioIsPlaying(false);
     setWorkoutState(WorkoutState.RUNNING);
@@ -165,6 +166,8 @@ const WorkoutTimer: React.FC<WorkoutProps> = props => {
       setAudioIsPlaying(true);
       setShowImageModal1(true);
       audioBeforeStart.play();
+      intervalAudio.play();
+      props.workoutTimerControl.setAudio(intervalAudio);
     } else {
       setWorkoutState(WorkoutState.RUNNING);
     }

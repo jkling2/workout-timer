@@ -11,26 +11,32 @@ function useWorkoutTimerControl(): WorkoutTimerProps {
   const [currentWorkoutTimerState, setCurrentWorkoutTimerState] = useState<WorkoutTimerState>(initialWorkoutTimerState);
   const [countDown, setCountDown] = useState(false);
   const [done, setDone] = useState(false);
-  let audioBeforeBreak = new Audio("https://raw.githubusercontent.com/jkling2/workout-timer/master/public/sounds/beforeBreak.mp3")
-  let audioBeforeInterval = new Audio("https://raw.githubusercontent.com/jkling2/workout-timer/master/public/sounds/beforeInterval.wav")
+  let audioBeforeBreak = "https://raw.githubusercontent.com/jkling2/workout-timer/master/public/sounds/beforeBreak.mp3";
+  let audioBeforeInterval = "https://raw.githubusercontent.com/jkling2/workout-timer/master/public/sounds/beforeInterval.wav";
+  let intervalAudio:HTMLAudioElement = new Audio();
 
-  const volume:number = 0.5;
-  audioBeforeInterval.volume = volume;
-  const playAudio = (audio: HTMLAudioElement) => {
-    return audio.play();
+  const setAudio = (audio: HTMLAudioElement) => {
+    intervalAudio = audio;
   }
-
+  
   const resetWorkout = () => {
     setCountDown(false);
     setDone(false);
     setCurrentWorkoutTimerState(initialWorkoutTimerState);
   }
-
+  
   useEffect(() => {
     setCurrentWorkoutTimerState(initialWorkoutTimerState);
   }, [initialWorkoutTimerState]);
-
+  
   useEffect(() => {
+    const playAudio = (source: string) => {
+      intervalAudio.src = source;
+      if (source === audioBeforeInterval) {
+        intervalAudio.volume = 0.5;
+      }
+      return intervalAudio.play();
+    }
     if (countDown && currentWorkoutTimerState.rounds > 0 && currentWorkoutTimerState.intervalTime > 0) {
       sleep(1000)
       .then(resolve => {
@@ -80,13 +86,14 @@ function useWorkoutTimerControl(): WorkoutTimerProps {
         setCountDown(false);
         setDone(true);
     }
-  }, [countDown, currentWorkoutTimerState, initialWorkoutTimerState, audioBeforeBreak, audioBeforeInterval]);
+  }, [countDown, currentWorkoutTimerState, initialWorkoutTimerState, audioBeforeBreak, audioBeforeInterval, intervalAudio]);
 
   return {
     initialWorkoutTimerState: initialWorkoutTimerState, 
     setInitialWorkoutTimerState: setInitialWorkoutTimerState,
     currentWorkoutTimerState: currentWorkoutTimerState, 
     setCountDown: setCountDown,
+    setAudio: setAudio,
     resetWorkout: resetWorkout,
     done: done,
   };

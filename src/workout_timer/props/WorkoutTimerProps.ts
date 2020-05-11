@@ -5,6 +5,7 @@ interface WorkoutTimerProps {
     setInitialWorkoutTimerState: Function;
     currentWorkoutTimerState: WorkoutTimerState;
     setCountDown: Function;
+    setAudio: Function;
     resetWorkout: Function;
     done:boolean;
 }
