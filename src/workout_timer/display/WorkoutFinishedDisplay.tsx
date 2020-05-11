@@ -1,8 +1,5 @@
 import React from 'react';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
+import { Button, Modal, OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 interface WorkoutFinishedProps {
   show: boolean;
@@ -13,7 +10,7 @@ interface WorkoutFinishedProps {
 
 const WorkoutFinishedDisplay: React.FC<WorkoutFinishedProps> = props => {
   return (
-    <Modal show={props.show} size="lg" centered >
+    <Modal show={props.show} size="lg" centered>
       <Modal.Header className="modal-head-fg">
         <Modal.Title id="contained-modal-title-vcenter">
           {props.completedSuccessfull ? 'WUHUUUUU!' : 'Stop Workout?'}
@@ -34,11 +31,11 @@ const WorkoutFinishedDisplay: React.FC<WorkoutFinishedProps> = props => {
           trigger="click"
           placement="top"
           overlay={<Tooltip id="resetTooltip">Reseting the Workout</Tooltip>}
-          >
+        >
           <Button
             id="button-fg"
             onClick={() => new Promise(resolve => setTimeout(resolve, 500)).then(resolve => props.reset())}
-            >
+          >
             {props.completedSuccessfull ? 'Close' : 'Stop Workout'}
           </Button>
         </OverlayTrigger>

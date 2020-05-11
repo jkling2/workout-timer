@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import WorkoutTimerPage from './workout_timer/page/WorkoutTimerPage';
-import logo from './favicon.svg';
+import logo from './img/favicon.svg';
 import './WorkoutApp.css'
 
 const WorkoutApp = () => {
