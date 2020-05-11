@@ -122,7 +122,7 @@
 #button-fg{
     color: white;
     background-color: var(--forest-green);
-    border-color: grey;
+    border-color: var(--forest-green-lighter);
 }
 #button-fg:active:enabled{
     border-color: var(--forest-green);
