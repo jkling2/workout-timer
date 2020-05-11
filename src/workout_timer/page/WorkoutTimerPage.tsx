@@ -205,26 +205,6 @@ const WorkoutTimer: React.FC<WorkoutProps> = props => {
     props.workoutTimerControl,
   ]);
 
-  const BreakProgressBar: React.FC = () => {
-    if (props.workoutTimerControl.currentWorkoutTimerState.breakTime >= 0 && props.workoutTimerControl.currentWorkoutTimerState.rounds > 1) {
-      return (
-        <Row xs="1" className="mt-3 ml-3 mr-3">
-          <ProgressBar
-            bsPrefix="fgl-progress"
-            animated
-            now={props.workoutTimerControl.currentWorkoutTimerState.breakTime}
-            label={`${props.workoutTimerControl.currentWorkoutTimerState.breakTime}sec`}
-            max={props.workoutTimerControl.initialWorkoutTimerState.breakTime}
-          />
-        </Row>
-      );
-    } else {
-      return (
-        <> </>
-      );
-    }
-  }
-
   const ImageModal: React.FC = () => {
     const startTimer1 = () => new Promise(resolve => setTimeout(resolve, 1000))
     .then(resolve => {setShowImageModal1(false); setShowImageModal2(true);});
@@ -255,76 +235,90 @@ const WorkoutTimer: React.FC<WorkoutProps> = props => {
 
   return (
     <>
-    {workoutState === WorkoutState.DONE && <Confetti width={width} height={height} run={workoutState === WorkoutState.DONE}/>}
-    <WorkoutFinishedDisplay
-          show={workoutState === WorkoutState.DONE || workoutState === WorkoutState.STOPPED}
-          completedSuccessfull={workoutState === WorkoutState.DONE}
-          reset={() => setWorkoutState(WorkoutState.INITIAL)}
-          quit= {() => setWorkoutState(WorkoutState.PAUSED)}
-          />
-    <ImageModal />
-    <Card id="card-fg">
-      <Card.Body>
-        <Card.Title id="card-title-fg">Workout</Card.Title>
-        <Card.Text className="mt-3 ml-3 mr-3">
-          {props.workoutTimerControl.initialWorkoutTimerState.intervalTime} sec PUSH -&nbsp;
-          {props.workoutTimerControl.initialWorkoutTimerState.breakTime} sec REST -&nbsp;
-          {props.workoutTimerControl.initialWorkoutTimerState.rounds} times
-        </Card.Text>
-        <Card.Text className="mt-3 ml-3 mr-3">
-          {props.workoutTimerControl.initialWorkoutTimerState.rounds -
-            props.workoutTimerControl.currentWorkoutTimerState.rounds}
-          /{props.workoutTimerControl.initialWorkoutTimerState.rounds} Rounds
-        </Card.Text>
-        <Row xs="1" className="mt-3 ml-3 mr-3">
-          <ProgressBar
-            bsPrefix="fg-progress"
-            animated
-            now={props.workoutTimerControl.currentWorkoutTimerState.intervalTime}
-            label={`${props.workoutTimerControl.currentWorkoutTimerState.intervalTime}sec`}
-            max={props.workoutTimerControl.initialWorkoutTimerState.intervalTime}
-          />
-        </Row>
-        <BreakProgressBar />
-        <Row className="mt-3 justify-content-center">
-          <ButtonToolbar aria-label="Toolbar with button groups">
-            <Button
-              id="button-fg"
-              className="mr-2"
-              size="lg"
-              active
-              onClick={runWorkout}
-              disabled={
-                workoutState === WorkoutState.RUNNING || audioIsPlaying ||
-                props.workoutTimerControl.initialWorkoutTimerState.intervalTime === 0 ||
-                props.workoutTimerControl.initialWorkoutTimerState.rounds === 0
-              }
-            >
-              {workoutState === WorkoutState.INITIAL && !audioIsPlaying ? "Start" : "Continue"}
-            </Button>
-            <Button
-              variant="secondary"
-              className="mr-2"
-              active
-              onClick={() => setWorkoutState(WorkoutState.PAUSED)}
-              disabled={workoutState !== WorkoutState.RUNNING}
-            >
-              Break
-            </Button>
-            <Button
-              id="button-fg"
-              className="mr-2"
-              size="lg"
-              active
-              onClick={() => setWorkoutState(WorkoutState.STOPPED)}
-              disabled={workoutState !== WorkoutState.RUNNING && workoutState !== WorkoutState.PAUSED}
-            >
-              Stop
-            </Button>
-          </ButtonToolbar>
-        </Row>
-      </Card.Body>
-    </Card>
+      {workoutState === WorkoutState.DONE && (
+        <Confetti width={width} height={height} run={workoutState === WorkoutState.DONE} />
+      )}
+      <WorkoutFinishedDisplay
+        show={workoutState === WorkoutState.DONE || workoutState === WorkoutState.STOPPED}
+        completedSuccessfull={workoutState === WorkoutState.DONE}
+        reset={() => setWorkoutState(WorkoutState.INITIAL)}
+        quit={() => setWorkoutState(WorkoutState.PAUSED)}
+      />
+      <ImageModal />
+      <Card id="card-fg">
+        <Card.Body>
+          <Card.Title id="card-title-fg">Workout</Card.Title>
+          <Card.Text className="mt-3 ml-3 mr-3">
+            {props.workoutTimerControl.initialWorkoutTimerState.intervalTime} sec PUSH -&nbsp;
+            {props.workoutTimerControl.initialWorkoutTimerState.breakTime} sec REST -&nbsp;
+            {props.workoutTimerControl.initialWorkoutTimerState.rounds} times
+          </Card.Text>
+          <Card.Text className="mt-3 ml-3 mr-3">
+            {props.workoutTimerControl.initialWorkoutTimerState.rounds -
+              props.workoutTimerControl.currentWorkoutTimerState.rounds}
+            /{props.workoutTimerControl.initialWorkoutTimerState.rounds} Rounds
+          </Card.Text>
+          <Row xs="1" className="mt-3 ml-3 mr-3">
+            <ProgressBar
+              bsPrefix="fg-progress"
+              animated
+              now={props.workoutTimerControl.currentWorkoutTimerState.intervalTime}
+              label={`${props.workoutTimerControl.currentWorkoutTimerState.intervalTime}sec`}
+              max={props.workoutTimerControl.initialWorkoutTimerState.intervalTime}
+            />
+          </Row>
+          {props.workoutTimerControl.currentWorkoutTimerState.breakTime >= 0 &&
+            props.workoutTimerControl.currentWorkoutTimerState.rounds > 1 && (
+              <Row xs="1" className="mt-3 ml-3 mr-3">
+                <ProgressBar
+                  bsPrefix="fgl-progress"
+                  animated
+                  now={props.workoutTimerControl.currentWorkoutTimerState.breakTime}
+                  label={`${props.workoutTimerControl.currentWorkoutTimerState.breakTime}sec`}
+                  max={props.workoutTimerControl.initialWorkoutTimerState.breakTime}
+                />
+              </Row>
+            )}
+          <Row className="mt-3 justify-content-center">
+            <ButtonToolbar aria-label="Toolbar with button groups">
+              <Button
+                id="button-fg"
+                className="mr-2"
+                size="lg"
+                active
+                onClick={runWorkout}
+                disabled={
+                  workoutState === WorkoutState.RUNNING ||
+                  audioIsPlaying ||
+                  props.workoutTimerControl.initialWorkoutTimerState.intervalTime === 0 ||
+                  props.workoutTimerControl.initialWorkoutTimerState.rounds === 0
+                }
+              >
+                {workoutState === WorkoutState.INITIAL && !audioIsPlaying ? 'Start' : 'Continue'}
+              </Button>
+              <Button
+                variant="secondary"
+                className="mr-2"
+                active
+                onClick={() => setWorkoutState(WorkoutState.PAUSED)}
+                disabled={workoutState !== WorkoutState.RUNNING}
+              >
+                Break
+              </Button>
+              <Button
+                id="button-fg"
+                className="mr-2"
+                size="lg"
+                active
+                onClick={() => setWorkoutState(WorkoutState.STOPPED)}
+                disabled={workoutState !== WorkoutState.RUNNING && workoutState !== WorkoutState.PAUSED}
+              >
+                Stop
+              </Button>
+            </ButtonToolbar>
+          </Row>
+        </Card.Body>
+      </Card>
     </>
   );
 };
