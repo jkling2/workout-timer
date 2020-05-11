@@ -151,7 +151,6 @@ const WorkoutTimer: React.FC<WorkoutProps> = props => {
   const audioBeforeStart = new Audio(
     'https://raw.githubusercontent.com/jkling2/workout-timer/master/public/sounds/beforeStart321.wav',
   );
-  const intervalAudio = new Audio();
   audioBeforeStart.addEventListener('ended', () => {
     setAudioIsPlaying(false);
     setWorkoutState(WorkoutState.RUNNING);
@@ -166,8 +165,7 @@ const WorkoutTimer: React.FC<WorkoutProps> = props => {
       setAudioIsPlaying(true);
       setShowImageModal1(true);
       audioBeforeStart.play();
-      intervalAudio.play();
-      props.workoutTimerControl.setAudio(intervalAudio);
+      props.workoutTimerControl.initializePlayAudio();
     } else {
       setWorkoutState(WorkoutState.RUNNING);
     }
@@ -250,7 +248,7 @@ const WorkoutTimer: React.FC<WorkoutProps> = props => {
           <Card.Title id="card-title-fg">Workout</Card.Title>
           <Card.Text className="mt-3 ml-3 mr-3">
             {props.workoutTimerControl.initialWorkoutTimerState.intervalTime} sec PUSH -&nbsp;
-            {props.workoutTimerControl.initialWorkoutTimerState.breakTime} sec REST -&nbsp;
+            {Math.max(0, props.workoutTimerControl.initialWorkoutTimerState.breakTime)} sec REST -&nbsp;
             {props.workoutTimerControl.initialWorkoutTimerState.rounds} times
           </Card.Text>
           <Card.Text className="mt-3 ml-3 mr-3">
