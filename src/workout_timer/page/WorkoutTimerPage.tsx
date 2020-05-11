@@ -7,6 +7,7 @@ import num3 from '../../3.svg';
 import num2 from '../../2.svg';
 import num1 from '../../1.svg';
 import Confetti from 'react-confetti';
+import useWindowSize from 'react-use/lib/useWindowSize'
 
 interface WorkoutConfigurationProps {
   workoutTimerControl: WorkoutTimerProps;
@@ -136,6 +137,7 @@ const WorkoutConfiguration: React.FC<WorkoutConfigurationProps> = props => {
 
 const WorkoutTimer: React.FC<WorkoutProps> = props => {
   const [audioIsPlaying, setAudioIsPlaying] = useState(false);
+  const { width, height } = useWindowSize()
   
   enum WorkoutState {
     INITIAL,
@@ -221,7 +223,6 @@ const WorkoutTimer: React.FC<WorkoutProps> = props => {
   }
 
   const ImageModal: React.FC = () => {
-
     const startTimer1 = () => new Promise(resolve => setTimeout(resolve, 1000))
     .then(resolve => {setShowImageModal1(false); setShowImageModal2(true);});
     const startTimer2 = () => new Promise(resolve => setTimeout(resolve, 1000))
@@ -251,7 +252,7 @@ const WorkoutTimer: React.FC<WorkoutProps> = props => {
 
   return (
     <>
-    {workoutState === WorkoutState.DONE && <Confetti run={workoutState === WorkoutState.DONE}/>}
+    {workoutState === WorkoutState.DONE && <Confetti width={width} height={height} run={workoutState === WorkoutState.DONE}/>}
     <WorkoutFinishedDisplay
           show={workoutState === WorkoutState.DONE || workoutState === WorkoutState.STOPPED}
           completedSuccessfull={workoutState === WorkoutState.DONE}
