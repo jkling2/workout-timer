@@ -36,7 +36,7 @@ const WorkoutConfiguration: React.FC<WorkoutConfigurationProps> = props => {
             placeholder="interval time in sec"
             isInvalid={!validIntervalTime}
             value={intervalTime < 0 ? "" : intervalTime}
-            onChange={(event: React.FormEvent<HTMLInputElement>) => {
+            onChange={(event: { currentTarget: { value: string}; }) => {
               if (isNaN(parseInt(event.currentTarget.value)) || event.currentTarget.value.length === 0) {
                 setIntervalTime(-1);
               } else {
@@ -63,7 +63,7 @@ const WorkoutConfiguration: React.FC<WorkoutConfigurationProps> = props => {
             pattern="[0-9]*"
             placeholder="break time in sec"
             value={breakTime < 0 ? "" : breakTime}
-            onChange={(event: React.FormEvent<HTMLInputElement>) => {
+            onChange={(event: { currentTarget: { value: string}; }) => {
               if (isNaN(parseInt(event.currentTarget.value)) || event.currentTarget.value.length === 0) {
                 setBreakTime(-1);
               } else {
@@ -88,7 +88,7 @@ const WorkoutConfiguration: React.FC<WorkoutConfigurationProps> = props => {
             placeholder="# rounds"
             isInvalid={!validRounds}
             value={rounds < 0 ? "" : rounds}
-            onChange={(event: React.FormEvent<HTMLInputElement>) => {
+            onChange={(event: { currentTarget: { value: string}; }) => {
               if (isNaN(parseInt(event.currentTarget.value)) || event.currentTarget.value.length === 0) {
                 setRounds(-1);
               } else {
