@@ -31,8 +31,6 @@ function useWorkoutTimerControl(): WorkoutTimerProps {
           if (currentWorkoutTimerState.intervalTime === 1) {
             audioBeforeBreak.src = audioBeforeBreakSource;
             audioBeforeBreak.volume = 0.5;
-            audioBeforeBreak.defaultMuted = false;
-            audioBeforeBreak.muted = false;
             audioBeforeBreak.play();
           }
           setCurrentWorkoutTimerState({
@@ -43,8 +41,6 @@ function useWorkoutTimerControl(): WorkoutTimerProps {
         } else if (currentWorkoutTimerState.rounds > 1 && currentWorkoutTimerState.breakTime > 0) {
           if (currentWorkoutTimerState.breakTime === 1) {
             audioBeforeInterval.src = audioBeforeIntervalSource;
-            audioBeforeInterval.defaultMuted = false;
-            audioBeforeInterval.muted = false;
             audioBeforeInterval.play();
           }
           setCurrentWorkoutTimerState({
