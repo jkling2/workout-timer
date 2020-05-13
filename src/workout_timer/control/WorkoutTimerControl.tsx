@@ -1,22 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import WorkoutTimerProps from '../props/WorkoutTimerProps';
-import WorkoutTimerState from '../props/WorkoutTimerState';
+import { WorkoutTimerContext } from '../context/WorkoutTimerContext';
 
 function useWorkoutTimerControl(): WorkoutTimerProps {
-  const [initialWorkoutTimerState, setInitialWorkoutTimerState] = useState<WorkoutTimerState>({
-    intervalTime: 0,
-    breakTime: 0,
-    rounds: 0,
-  });
-  const [currentWorkoutTimerState, setCurrentWorkoutTimerState] = useState<WorkoutTimerState>(initialWorkoutTimerState);
+  const { initialWorkoutTimerState, currentWorkoutTimerState, setCurrentWorkoutTimerState } = useContext(
+    WorkoutTimerContext,
+  );
   const [countDown, setCountDown] = useState(false);
   const [done, setDone] = useState(false);
-  const audioBeforeBreak: string = require('../../sounds/beforeBreak.mp3');
-  const audioBeforeInterval: string = require('../../sounds/beforeInterval.wav');
-  const intervalAudio: HTMLAudioElement = new Audio();
+  const audioBeforeBreakSource: string = require('../../sounds/beforeBreak.mp3');
+  const audioBeforeIntervalSource: string = require('../../sounds/beforeInterval.wav');
+  const audioBeforeBreak: HTMLAudioElement = new Audio();
+  const audioBeforeInterval: HTMLAudioElement = new Audio();
 
   const initializePlayAudio = () => {
-    intervalAudio.play();
+    audioBeforeBreak.play();
+    audioBeforeInterval.play();
   };
 
   const resetWorkout = () => {
@@ -24,26 +23,17 @@ function useWorkoutTimerControl(): WorkoutTimerProps {
     setDone(false);
     setCurrentWorkoutTimerState(initialWorkoutTimerState);
   };
-
+  
   useEffect(() => {
-    setCurrentWorkoutTimerState(initialWorkoutTimerState);
-  }, [initialWorkoutTimerState]);
-
-  useEffect(() => {
-    const playAudio = (source: string) => {
-      intervalAudio.src = source;
-      if (source === audioBeforeInterval) {
-        intervalAudio.volume = 0.5;
-      }
-      intervalAudio.muted = false;
-      intervalAudio.play();
-    };
-
     const tick = () => {
       if (countDown) {
         if (currentWorkoutTimerState.rounds > 0 && currentWorkoutTimerState.intervalTime > 0) {
           if (currentWorkoutTimerState.intervalTime === 1) {
-            playAudio(audioBeforeBreak);
+            audioBeforeBreak.src = audioBeforeBreakSource;
+            audioBeforeBreak.volume = 0.5;
+            audioBeforeBreak.defaultMuted = false;
+            audioBeforeBreak.muted = false;
+            audioBeforeBreak.play();
           }
           setCurrentWorkoutTimerState({
             intervalTime: currentWorkoutTimerState.intervalTime - 1,
@@ -52,7 +42,10 @@ function useWorkoutTimerControl(): WorkoutTimerProps {
           });
         } else if (currentWorkoutTimerState.rounds > 1 && currentWorkoutTimerState.breakTime > 0) {
           if (currentWorkoutTimerState.breakTime === 1) {
-            playAudio(audioBeforeInterval);
+            audioBeforeInterval.src = audioBeforeIntervalSource;
+            audioBeforeInterval.defaultMuted = false;
+            audioBeforeInterval.muted = false;
+            audioBeforeInterval.play();
           }
           setCurrentWorkoutTimerState({
             intervalTime: currentWorkoutTimerState.intervalTime,
@@ -76,7 +69,6 @@ function useWorkoutTimerControl(): WorkoutTimerProps {
         }
       }
     };
-
     if (countDown && currentWorkoutTimerState.rounds === 0) {
       setCountDown(false);
       setDone(true);
@@ -87,15 +79,12 @@ function useWorkoutTimerControl(): WorkoutTimerProps {
     countDown,
     currentWorkoutTimerState,
     initialWorkoutTimerState,
-    audioBeforeBreak,
-    audioBeforeInterval,
-    intervalAudio,
+    // audioBeforeBreak,
+    // audioBeforeInterval,
+    setCurrentWorkoutTimerState,
   ]);
 
   return {
-    initialWorkoutTimerState: initialWorkoutTimerState,
-    setInitialWorkoutTimerState: setInitialWorkoutTimerState,
-    currentWorkoutTimerState: currentWorkoutTimerState,
     setCountDown: setCountDown,
     initializePlayAudio: initializePlayAudio,
     resetWorkout: resetWorkout,

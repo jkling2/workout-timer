@@ -1,19 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Card, InputGroup, Col, Form, Row, Button } from 'react-bootstrap';
-import WorkoutTimerProps from '../props/WorkoutTimerProps';
+import { WorkoutTimerContext } from '../context/WorkoutTimerContext';
+import WorkoutTimerState from '../props/WorkoutTimerState';
 
 interface WorkoutConfigurationProps {
-  workoutTimerControl: WorkoutTimerProps;
-  configured: boolean;
-  setConfigured: Function;
+  setCountDown: Function;
 }
 
 const WorkoutConfiguration: React.FC<WorkoutConfigurationProps> = props => {
-  const [intervalTime, setIntervalTime] = useState(-1);
-  const [breakTime, setBreakTime] = useState(-1);
-  const [rounds, setRounds] = useState(-1);
+  const {
+    initialWorkoutTimerState,
+    setInitialWorkoutTimerState,
+    setCurrentWorkoutTimerState,
+    configured,
+    setConfigured,
+  } = useContext(WorkoutTimerContext);
+  const [intervalTime, setIntervalTime] = useState(initialWorkoutTimerState.intervalTime);
+  const [breakTime, setBreakTime] = useState(initialWorkoutTimerState.breakTime);
+  const [rounds, setRounds] = useState(initialWorkoutTimerState.rounds);
   const [validRounds, setValidRounds] = useState(true);
   const [validIntervalTime, setValidIntervalTime] = useState(true);
+
   return (
     <Card id="card-fg">
       <Card.Body>
@@ -28,10 +35,15 @@ const WorkoutConfiguration: React.FC<WorkoutConfigurationProps> = props => {
             pattern="[0-9]*"
             placeholder="interval time in sec"
             isInvalid={!validIntervalTime}
-            onChange={(event: React.FormEvent<HTMLInputElement>) =>
-              setIntervalTime(parseInt(event.currentTarget.value))
-            }
-            disabled={props.configured}
+            value={intervalTime < 0 ? "" : intervalTime}
+            onChange={(event: React.FormEvent<HTMLInputElement>) => {
+              if (isNaN(parseInt(event.currentTarget.value)) || event.currentTarget.value.length === 0) {
+                setIntervalTime(-1);
+              } else {
+                setIntervalTime(parseInt(event.currentTarget.value));
+              }
+            }}
+            disabled={configured}
           />
           <InputGroup.Append>
             <InputGroup.Text id="prepend-radius">sec&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</InputGroup.Text>
@@ -50,8 +62,15 @@ const WorkoutConfiguration: React.FC<WorkoutConfigurationProps> = props => {
             type="text"
             pattern="[0-9]*"
             placeholder="break time in sec"
-            onChange={(event: React.FormEvent<HTMLInputElement>) => setBreakTime(parseInt(event.currentTarget.value))}
-            disabled={props.configured}
+            value={breakTime < 0 ? "" : breakTime}
+            onChange={(event: React.FormEvent<HTMLInputElement>) => {
+              if (isNaN(parseInt(event.currentTarget.value)) || event.currentTarget.value.length === 0) {
+                setBreakTime(-1);
+              } else {
+                setBreakTime(parseInt(event.currentTarget.value));
+              }
+            }}
+            disabled={configured}
           />
           <InputGroup.Append>
             <InputGroup.Text>sec&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</InputGroup.Text>
@@ -68,8 +87,15 @@ const WorkoutConfiguration: React.FC<WorkoutConfigurationProps> = props => {
             pattern="[0-9]*"
             placeholder="# rounds"
             isInvalid={!validRounds}
-            onChange={(event: React.FormEvent<HTMLInputElement>) => setRounds(parseInt(event.currentTarget.value))}
-            disabled={props.configured}
+            value={rounds < 0 ? "" : rounds}
+            onChange={(event: React.FormEvent<HTMLInputElement>) => {
+              if (isNaN(parseInt(event.currentTarget.value)) || event.currentTarget.value.length === 0) {
+                setRounds(-1);
+              } else {
+                setRounds(parseInt(event.currentTarget.value));
+              }
+            }}
+            disabled={configured}
           />
           <InputGroup.Append>
             <InputGroup.Text id="prepend-radius">Rounds</InputGroup.Text>
@@ -86,12 +112,14 @@ const WorkoutConfiguration: React.FC<WorkoutConfigurationProps> = props => {
               if (intervalTime > 0 && rounds > 0) {
                 setValidRounds(true);
                 setValidIntervalTime(true);
-                props.setConfigured(true);
-                props.workoutTimerControl.setInitialWorkoutTimerState({
+                setConfigured(true);
+                const newInitialWorkoutTimerState: WorkoutTimerState = {
                   intervalTime: intervalTime,
-                  breakTime: isNaN(breakTime) ? -1 : breakTime,
+                  breakTime: breakTime === 0 ? -1 : breakTime,
                   rounds: rounds,
-                });
+                };
+                setInitialWorkoutTimerState(newInitialWorkoutTimerState);
+                setCurrentWorkoutTimerState(newInitialWorkoutTimerState);
               } else if (intervalTime > 0) {
                 setValidIntervalTime(true);
                 setValidRounds(false);
@@ -103,7 +131,7 @@ const WorkoutConfiguration: React.FC<WorkoutConfigurationProps> = props => {
                 setValidIntervalTime(false);
               }
             }}
-            disabled={props.configured}
+            disabled={configured}
           >
             Submit
           </Button>
@@ -111,10 +139,10 @@ const WorkoutConfiguration: React.FC<WorkoutConfigurationProps> = props => {
             id="button-fg"
             className="ml-2"
             onClick={() => {
-              props.setConfigured(false);
-              props.workoutTimerControl.setCountDown(false);
+              setConfigured(false);
+              props.setCountDown(false);
             }}
-            disabled={!props.configured}
+            disabled={!configured}
           >
             Configure
           </Button>
