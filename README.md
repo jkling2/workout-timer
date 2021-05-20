@@ -1,4 +1,5 @@
 # Workout Timer Application using React and Typescript
+![CI Status](https://github.com/jkling2/workout-timer/actions/workflows/node.js.yml/badge.svg)
 
 Ready for Circuit Training? Need a Timer? Here you go:
 
