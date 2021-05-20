@@ -13,6 +13,9 @@ jobs:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     
+    env:
+      CI: false
+    
     strategy:
       matrix:
         node-version: [10.x, 12.x, 14.x, 15.x]
